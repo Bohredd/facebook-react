@@ -80,7 +80,9 @@ function App() {
 
   return (
     <>
-      {users && users.length > 0 && <CreatePost user={users[0] as User} />}{" "}
+      {users && users.length > 0 && (
+        <CreatePost user={users[0] as User} setPosts={setPosts} />
+      )}{" "}
       {posts?.map((post) => (
         <ShowPost
           key={post.id}
