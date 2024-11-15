@@ -6,12 +6,14 @@ import { CreatePost } from "./components/CreatePost";
 import { User } from "./types/User";
 import { Like } from "./types/Like";
 import { Reaction } from "./types/Reaction";
+import { Coment } from "./types/Coment";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>();
   const [users, setUsers] = useState<User[]>();
   const [likes, setLikes] = useState<Like[]>();
   const [reactions, setReactions] = useState<Reaction[]>();
+  const [coments, setComents] = useState<Coment[]>();
 
   useEffect(() => {
     setReactions([
@@ -97,6 +99,10 @@ function App() {
           key={post.id}
           post={post}
           likes={likes?.filter((like) => like.post == post) || []}
+          setLikes={setLikes}
+          reactions={reactions || []}
+          setComents={setComents}
+          coments={coments}
         />
       ))}
     </>

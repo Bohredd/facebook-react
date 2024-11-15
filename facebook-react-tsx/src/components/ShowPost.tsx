@@ -1,13 +1,28 @@
 import { Post } from "../types/Post";
 import { Like } from "../types/Like";
 import { Card } from "react-bootstrap";
+import { ReactPost } from "./ReactPost";
+import { Reaction } from "../types/Reaction";
+import { ComentPost } from "./ComentPost";
+import { Coment } from "../types/Coment";
 
 type ShowPostProps = {
   post: Post;
   likes: Like[];
+  setLikes: React.Dispatch<React.SetStateAction<Like[] | undefined>>;
+  reactions: Reaction[];
+  setComents: React.Dispatch<React.SetStateAction<Coment[] | undefined>>;
+  coments: Coment[];
 };
 
-export const ShowPost = ({ post, likes }: ShowPostProps) => {
+export const ShowPost = ({
+  post,
+  likes,
+  setLikes,
+  reactions,
+  setComents,
+  coments,
+}: ShowPostProps) => {
   const likeCount = likes.filter(
     (like) => like.post.id === post.id && like.reaction.reaction === "Like"
   ).length;
@@ -37,25 +52,9 @@ export const ShowPost = ({ post, likes }: ShowPostProps) => {
             </Card.Text>
           </>
         )}
+        <ReactPost post={post} reactions={reactions} setLikes={setLikes} />
+        <ComentPost post={post} setComents={setComents} coments={coments} />
       </Card.Body>
     </Card>
-
-    // <div className="bg-slate-200">
-    //   <h3>{post.text}</h3>
-    //   <p>{post.date}</p>
-    //   <p>Posted by: {post.postBy?.name}</p>
-    //   {likes.length > 0 && (
-    //     <>
-    //       <p>Reactions:</p>
-    //       <ul>
-    //         {likes.map((like) => (
-    //           <li key={like.id}>
-    //             {like.reaction} by {like.likeBy.name} on {like.date}
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     </>
-    //   )}
-    // </div>
   );
 };
