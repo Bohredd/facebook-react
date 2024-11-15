@@ -11,9 +11,6 @@ interface CommentPostProps {
 
 export const ComentPost = ({ post, setComents, coments }: CommentPostProps) => {
   const comentsPost = coments;
-  console.log("comentarios do post", comentsPost);
-
-  console.log("post", post);
 
   const [text, setText] = useState<string>("");
 
@@ -34,7 +31,6 @@ export const ComentPost = ({ post, setComents, coments }: CommentPostProps) => {
 
   const createComent = () => {
     const todayString = new Date().toISOString().slice(0, 10);
-    console.log(todayString);
 
     const newComent: Coment = {
       id: Math.random(),
@@ -48,7 +44,8 @@ export const ComentPost = ({ post, setComents, coments }: CommentPostProps) => {
       post: post,
     };
 
-    console.log(newComent);
+    console.log("novo comentario criado", newComent);
+    console.log("Post da pagina: ", post);
 
     setComents((prevComents) =>
       prevComents ? [...prevComents, newComent] : [newComent]
@@ -60,13 +57,15 @@ export const ComentPost = ({ post, setComents, coments }: CommentPostProps) => {
   return (
     <div>
       {coments &&
-        comentsPost.map((coment) => (
-          <Card key={coment.id}>
-            <p>{coment.text}</p>
-            <p>{coment.date}</p>
-            <p>{coment.commentBy.name}</p>
-          </Card>
-        ))}
+        comentsPost
+          .filter((coment) => coment.post.id === post.id)
+          .map((coment) => (
+            <Card key={coment.id}>
+              <p>{coment.text}</p>
+              <p>{coment.date}</p>
+              <p>{coment.commentBy.name}</p>
+            </Card>
+          ))}
 
       <div>
         <input
