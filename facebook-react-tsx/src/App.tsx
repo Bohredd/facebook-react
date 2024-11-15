@@ -5,11 +5,20 @@ import { ShowPost } from "./components/ShowPost";
 import { CreatePost } from "./components/CreatePost";
 import { User } from "./types/User";
 import { Like } from "./types/Like";
+import { Reaction } from "./types/Reaction";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>();
   const [users, setUsers] = useState<User[]>();
   const [likes, setLikes] = useState<Like[]>();
+  const [reactions, setReactions] = useState<Reaction[]>();
+
+  useEffect(() => {
+    setReactions([
+      { reaction: "Like", svg: "👍" },
+      { reaction: "Dislike", svg: "👎" },
+    ]);
+  }, []);
 
   useEffect(() => {
     setUsers([
@@ -49,34 +58,34 @@ function App() {
     setLikes([
       {
         id: 1,
-        reaction: "Like",
+        reaction: reactions?.[0] as Reaction,
         date: "2021-09-01",
         likeBy: users?.[1] as User,
         post: posts?.[0] as Post,
       },
       {
         id: 2,
-        reaction: "Love",
+        reaction: reactions?.[0] as Reaction,
         date: "2021-09-02",
         likeBy: users?.[1] as User,
         post: posts?.[1] as Post,
       },
       {
         id: 3,
-        reaction: "Like",
+        reaction: reactions?.[1] as Reaction,
         date: "2021-09-03",
         likeBy: users?.[0] as User,
         post: posts?.[1] as Post,
       },
       {
         id: 4,
-        reaction: "Dislike",
+        reaction: reactions?.[1] as Reaction,
         date: "2021-09-04",
         likeBy: users?.[0] as User,
-        post: posts?.[0] as Post,
+        post: posts?.[1] as Post,
       },
     ]);
-  }, [users, posts]);
+  }, [users, posts, reactions]);
 
   return (
     <>

@@ -46,14 +46,19 @@ export const CreatePost = ({ user, setPosts }: CreatePostProps) => {
   return (
     <div>
       <h3>Create Post</h3>
-      <input
-        type="text"
-        placeholder="What's on your mind?"
-        value={text}
-        onChange={handleInputChange}
-      />
+      <div>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="What's on your mind?"
+          value={text}
+          onChange={handleInputChange}
+        />
 
-      <button onClick={getTextPost}>Post</button>
+        <button className="btn btn-primary" onClick={getTextPost}>
+          Post
+        </button>
+      </div>
     </div>
   );
 };
